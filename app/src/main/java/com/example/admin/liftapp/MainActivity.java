@@ -27,6 +27,6 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.OnF
 
     @Override
     public void showAlbumsFragment() {
-    //Commitghgjk
+    //CommitCheck
     }
 }

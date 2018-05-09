@@ -18,7 +18,6 @@ public class Authentication {
 
     /*
     Adam Note in Android we use callbacks like this, we create interface (row 24) and return it in callback function as a final (row 34)
-
      */
 
     public static interface loginUserCallBack{

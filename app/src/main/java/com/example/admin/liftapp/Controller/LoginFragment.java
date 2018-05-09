@@ -29,6 +29,7 @@ import java.util.concurrent.Executor;
 public class LoginFragment extends Fragment {
     private OnFragmentLoginInteractionListener mListener;
 
+
     ProgressBar progressBar;
     private Button buttonRegister;
     private Button buttonLogin;
@@ -87,11 +88,11 @@ public class LoginFragment extends Fragment {
                     @Override
                     public void onLogin(boolean t) {
                         if (t==true){
-                           // Toast.makeText(MyApplication.getMyContext(), "You have been successfully logged in", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "You have been successfully logged in", Toast.LENGTH_SHORT).show();
                             mListener.showUserFragment(); //Adam note after successfully created user we tell the listener (activity) to change fragment to user Fragment
                         }
                         else {
-                          //  Toast.makeText(MyApplication.getMyContext(), "Login failed", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Login failed", Toast.LENGTH_SHORT).show();
                         }
                         progressBar.setVisibility(View.GONE);
                     }
@@ -117,13 +118,14 @@ public class LoginFragment extends Fragment {
                 Authentication.registerUser(email.getText().toString(), password.getText().toString(), new Authentication.regUserCallBack() {
                     @Override
                     public void onRegistration(boolean t) {
-                        if (t==true) {
-                         //   Toast.makeText(MyApplication.getMyContext(), "Successfully created user", Toast.LENGTH_SHORT).show();
+                        if (t==true) {Toast.makeText(getActivity(), "Successfully created user", Toast.LENGTH_SHORT).show();
                             mListener.showUserFragment(); //Adam note after successfully created user we tell the listener (activity) to change fragment to user Fragment
                         }
                         else {
-                         //   Toast.makeText(MyApplication.getMyContext(), "Login failed", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Login failed", Toast.LENGTH_SHORT).show();
                         }
+                        progressBar.setVisibility(View.GONE);
+
                     }
                 });
             }

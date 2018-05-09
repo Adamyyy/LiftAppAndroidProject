@@ -15,7 +15,8 @@
             android:id="@+id/user_avatar_img"
             android:layout_width="100dp"
             android:layout_height="160dp"
-            android:src="@drawable/trainervatar" />
+            android:src="@drawable/traineravatar"
+            />
 
         <LinearLayout
             android:layout_width="match_parent"

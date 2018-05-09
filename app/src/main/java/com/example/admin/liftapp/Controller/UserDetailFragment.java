@@ -20,10 +20,12 @@ import com.example.admin.liftapp.R;
 public class UserDetailFragment extends Fragment {
     ProgressBar progressBar;
     private OnFragmentUserInteractionListener mListener;
+
     private Button buttonCancel;
     private Button buttonSave;
-    private EditText editTextEmail;
-    private EditText editTextPassword;
+    private EditText editTextName;
+    private EditText editTextUsername;
+
 
     public interface OnFragmentUserInteractionListener {
 

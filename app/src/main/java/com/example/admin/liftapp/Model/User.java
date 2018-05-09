@@ -15,7 +15,7 @@ public class User {
     @NonNull
     public String userName;
     public String email;
-    public String name;
+
     public String claim;
 
     public String height;
@@ -41,13 +41,9 @@ public class User {
         this.userName = userName;
     }
 
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+
+
 
     public String getClaim() {
         return claim;
@@ -92,7 +88,6 @@ public class User {
     HashMap<String,Object> toJson(){
         HashMap<String, Object> result = new HashMap<>();
         result.put("userName", userName);
-        result.put("name", name);
         result.put("imageUrl", imageUrl);
         result.put("email", email);
         result.put("claim", claim);

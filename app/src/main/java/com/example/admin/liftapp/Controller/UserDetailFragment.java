@@ -1,6 +1,7 @@
 package com.example.admin.liftapp.Controller;
 
 import android.content.Context;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,16 +15,22 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.admin.liftapp.Model.Authentication;
+import com.example.admin.liftapp.Model.User;
 import com.example.admin.liftapp.R;
+
+import java.util.LinkedList;
+import java.util.List;
 
 
 public class UserDetailFragment extends Fragment {
+
+    User imageList = new User();
+
     ProgressBar progressBar;
     private OnFragmentUserInteractionListener mListener;
 
     private Button buttonCancel;
     private Button buttonSave;
-    private EditText editTextName;
     private EditText editTextUsername;
 
 

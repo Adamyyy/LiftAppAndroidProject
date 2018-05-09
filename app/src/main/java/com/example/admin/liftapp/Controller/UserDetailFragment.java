@@ -113,7 +113,7 @@ public class UserDetailFragment extends Fragment {
                 userList = users;
                 Log.d("TAG","Got Users");
                 User toDisplay = userList.get(0);
-                userName.setText(toDisplay.userName);
+             //   userName.setText(toDisplay.userName);
 
                // if (adapter != null) adapter.notifyDataSetChanged();
             }

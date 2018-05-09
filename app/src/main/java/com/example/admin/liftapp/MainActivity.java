@@ -2,6 +2,7 @@ package com.example.admin.liftapp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -25,8 +26,8 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.OnF
                 .commit();
     }
 
-    @Override
-    public void showAlbumsFragment() {
-    //CommitCheck
+
+    public void showUserFragment() {
+        Log.d("TAG","Got to showUserFragment");
     }
 }

@@ -12,7 +12,7 @@ import com.example.admin.liftapp.Controller.MyApplication;
 
 @Database(entities = {User.class}, version = 1)
 abstract class AppLocalStoreDb extends RoomDatabase {
-    public abstract UserDao employeeDao();
+    public abstract UserDao userDao();
 }
 
 public class AppLocalStore{

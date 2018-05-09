@@ -31,14 +31,6 @@ public class LoginFragment extends Fragment {
 
 
     ProgressBar progressBar;
-    private Button buttonRegister;
-    private Button buttonLogin;
-    private EditText editTextEmail;
-    private EditText editTextPassword;
-    private ProgressDialog progressDialog;
-
-
-    private final static String FAMILY_SERIAL = "FAMILY_SERIAL";
 
 
 
@@ -67,8 +59,7 @@ public class LoginFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //buttonRegister = (Button) view.findViewById(R.id.createNewAccount);
-        //buttonLogin = (Button) view.findViewById(R.id.login);
+
         final EditText email = view.findViewById(R.id.editText_email);
         final EditText password = view.findViewById(R.id.editText_password);
 

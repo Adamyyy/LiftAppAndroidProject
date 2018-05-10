@@ -18,6 +18,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.admin.liftapp.Model.Authentication;
+import com.example.admin.liftapp.Model.Model;
 import com.example.admin.liftapp.Model.User;
 import com.example.admin.liftapp.Model.UserViewModel;
 import com.example.admin.liftapp.R;
@@ -39,10 +40,10 @@ public class UserDetailFragment extends Fragment {
     private Button buttonCancel;
     private Button buttonSave;
     private EditText userName;
-    private EditText editTextHeight;
-    private EditText editTextWeight;
-    private EditText editTextBirth;
-    private EditText editTectClaim;
+    private EditText height;
+    private EditText weight;
+    private EditText birth;
+    private EditText claim;
 
     public interface OnFragmentUserInteractionListener {
 
@@ -61,11 +62,6 @@ public class UserDetailFragment extends Fragment {
 
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        userName = view.findViewById(R.id.user_userName_et);
-        final EditText height = view.findViewById(R.id.user_height_et);
-        final EditText weight = view.findViewById(R.id.user_weight_et);
-        final EditText birth = view.findViewById(R.id.newstudent_bdate_et);
-        final EditText claim = view.findViewById(R.id.user_claimToFame_et);
 
     }
 
@@ -81,6 +77,48 @@ public class UserDetailFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_user_detail, container, false);
         progressBar = view.findViewById(R.id.userp_progressbar);
         email = Authentication.getUserEmail();
+        userName = view.findViewById(R.id.user_userName_et);
+        height = view.findViewById(R.id.user_height_et);
+        weight = view.findViewById(R.id.user_weight_et);
+        birth = view.findViewById(R.id.newstudent_bdate_et);
+        claim = view.findViewById(R.id.user_claimToFame_et);
+
+
+        view.findViewById(R.id.newstudent_save_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                final String text= userName.getText().toString();
+                if (text.equals("")) {
+                    Toast.makeText(MyApplication.getMyContext(), "Invalid Username", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // public User(@NonNull String userName, String email, String birthday, String claim, String height, String weight, String imageUrl, float lastUpdated) {
+
+                progressBar.setVisibility(View.VISIBLE);
+                User toAdd = new User();
+                toAdd.setUserName(text);
+                toAdd.setEmail(email);
+                toAdd.setBirhday(birth.getText().toString());
+                toAdd.setHeight(height.getText().toString());
+                toAdd.setWeight(weight.getText().toString());
+                toAdd.setClaim(claim.getText().toString());
+                Log.d("TAG","created user");
+                Model.instance().addUser(toAdd, new Model.OnCreation() {
+                    @Override
+                    public void onCompletion(boolean success) {
+                        Log.d("TAG","create comment"+success);
+                        progressBar.setVisibility(View.GONE);
+                    }
+                });
+
+            }
+        });
+
+
+
+
         return view;
     }
 
@@ -112,10 +150,10 @@ public class UserDetailFragment extends Fragment {
             public void onChanged(@Nullable List<User> users) {
                 userList = users;
                 Log.d("TAG","Got Users");
-                User toDisplay = userList.get(0);
-             //   userName.setText(toDisplay.userName);
+                //   User toDisplay = userList.get(0);
+                //   userName.setText(toDisplay.userName);
 
-               // if (adapter != null) adapter.notifyDataSetChanged();
+                // if (adapter != null) adapter.notifyDataSetChanged();
             }
         });
 

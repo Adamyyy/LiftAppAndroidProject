@@ -15,7 +15,7 @@ public class User {
     @NonNull
     public String userName;
     public String email;
-
+    public String birhday;
     public String claim;
 
     public String height;
@@ -42,8 +42,13 @@ public class User {
     }
 
 
+    public String getBirhday() {
+        return birhday;
+    }
 
-
+    public void setBirhday(String birhday) {
+        this.birhday = birhday;
+    }
 
     public String getClaim() {
         return claim;
@@ -92,6 +97,7 @@ public class User {
         result.put("email", email);
         result.put("claim", claim);
         result.put("height", height);
+        result.put("birthday", birhday);
         result.put("weight", weight);
         result.put("lastUpdated", lastUpdated);
         return result;

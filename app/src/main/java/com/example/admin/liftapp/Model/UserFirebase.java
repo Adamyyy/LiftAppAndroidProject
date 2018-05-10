@@ -9,6 +9,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Comment;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -45,6 +47,8 @@ public class UserFirebase {
         });
     }
 
+
+    /*
     public static void addUser(User user){
         Log.d("TAG", "add user to firebase");
         HashMap<String, Object> json = user.toJson();
@@ -52,5 +56,35 @@ public class UserFirebase {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("users");
         myRef.child(user.userName).setValue(json);
+    }
+    */
+
+
+    public interface OnCreationUser {
+        void onCompletion(boolean success);
+    }
+
+
+    public static void addUser(User user, final OnCreationUser listener) {
+        Log.d("TAG", "add user to firebase");
+        HashMap<String, Object> json = user.toJson();
+        json.put("lastUpdated", ServerValue.TIMESTAMP);
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("users");
+        DatabaseReference ref = myRef.child(user.userName);
+        ref.setValue(json, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                if (databaseError != null) {
+                    Log.e("TAG", "Error: User could not be saved "
+                            + databaseError.getMessage());
+                    listener.onCompletion(false);
+                } else {
+                    Log.e("TAG", "Success : User saved successfully.");
+                    listener.onCompletion(true);
+                }
+            }
+        });
+
     }
 }

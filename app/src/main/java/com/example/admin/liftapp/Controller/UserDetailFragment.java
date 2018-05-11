@@ -104,11 +104,12 @@ public class UserDetailFragment extends Fragment {
                 toAdd.setHeight(height.getText().toString());
                 toAdd.setWeight(weight.getText().toString());
                 toAdd.setClaim(claim.getText().toString());
-                Log.d("TAG","created user");
+
                 Model.instance().addUser(toAdd, new Model.OnCreation() {
                     @Override
                     public void onCompletion(boolean success) {
-                        Log.d("TAG","create comment"+success);
+                        Log.d("TAG","created user");
+                        Toast.makeText(getActivity(), "User Details Updated!", Toast.LENGTH_SHORT).show();
                         progressBar.setVisibility(View.GONE);
                     }
                 });
@@ -150,9 +151,18 @@ public class UserDetailFragment extends Fragment {
             public void onChanged(@Nullable List<User> users) {
                 userList = users;
                 Log.d("TAG","Got Users");
-                //   User toDisplay = userList.get(0);
-                //   userName.setText(toDisplay.userName);
+               //   User toDisplay = new User();
+                  for (User user : userList)
+                  {
+                      if (user.email.equals(email)){
+                      userName.setText(user.userName);
+                      height.setText(user.height);
+                      weight.setText(user.weight);
+                      birth.setText(user.birthday);
+                      claim.setText(user.claim);
 
+                  }
+                  }
                 // if (adapter != null) adapter.notifyDataSetChanged();
             }
         });

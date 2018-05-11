@@ -31,8 +31,10 @@ public interface UserDao {
     @Query("SELECT * FROM User WHERE userName = :userName")
     User findByuserName(String userName);
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert
     void insertAll(User... users);
+
+
     @Delete
     void delete(User user);
 

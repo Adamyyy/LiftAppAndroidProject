@@ -11,16 +11,16 @@ import java.util.HashMap;
 
 @Entity
 public class User {
+
     @PrimaryKey
     @NonNull
+
     public String userName;
     public String email;
-    public String birhday;
+    public String birthday;
     public String claim;
-
     public String height;
     public String weight;
-
     public String imageUrl;
     public float lastUpdated;
 
@@ -42,12 +42,12 @@ public class User {
     }
 
 
-    public String getBirhday() {
-        return birhday;
+    public String getBirthday() {
+        return birthday;
     }
 
     public void setBirhday(String birhday) {
-        this.birhday = birhday;
+        this.birthday = birhday;
     }
 
     public String getClaim() {
@@ -97,7 +97,7 @@ public class User {
         result.put("email", email);
         result.put("claim", claim);
         result.put("height", height);
-        result.put("birthday", birhday);
+        result.put("birthday", birthday);
         result.put("weight", weight);
         result.put("lastUpdated", lastUpdated);
         return result;

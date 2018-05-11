@@ -17,8 +17,8 @@ public class UserViewModel extends ViewModel {
         //step 3
         // Adam Note
         //In the constroctor we generate the employeeList with the data from the EmployeeRepository
-        users = UserRepository.instance.getUserList();
-
+        users = UserRepository.instance.getAllUsers();
+        //Process step 2
     }
 
 

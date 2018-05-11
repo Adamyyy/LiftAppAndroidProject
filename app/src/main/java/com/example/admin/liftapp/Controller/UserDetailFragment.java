@@ -142,6 +142,8 @@ public class UserDetailFragment extends Fragment {
         //Adam Note - Here we connect fragement to its viewModel that holds the live data and that employeeListViewModel is of type EmployeeListViewModel step 1
         userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
         //Adam Note - Here we activate the getEmployeeList function from the viewModel which returns the LiveData step 2
+
+        //Process step 1
         userViewModel.getUsersList().observe(this, new Observer<List<User>>() {
 
 

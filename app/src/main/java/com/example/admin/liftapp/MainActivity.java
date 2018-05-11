@@ -7,6 +7,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.example.admin.liftapp.Controller.LoginFragment;
+import com.example.admin.liftapp.Controller.MyApplication;
 import com.example.admin.liftapp.Controller.UserDetailFragment;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -17,6 +18,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.OnF
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        MyApplication application= new MyApplication();
         showLoginFragment();
     }
 

@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/holo_blue_light"
+    android:inputType="textCapSentences"
 
 
     >
@@ -13,14 +14,15 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <EditText
+        <TextView
+            android:id="@+id/myText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:textColor="@color/colorPrimaryDark"
-            android:inputType="textPersonName"
-            android:text="Welcome to AppLift!"
-            android:textAlignment="center"/>
+            android:text="Welcome to AppLift"
+            android:gravity="center"
+            android:textSize="30dp"
+            android:textColor="#fff"
+            />
 
         <ImageView
             android:id="@+id/imageView"
@@ -38,8 +40,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/editText_email"
-            android:textColor="@color/common_google_signin_btn_text_dark"
+            android:textColor="@color/colorPrimaryDark"
+
             android:background="@android:color/white"
+            android:textColorHint="@color/colorPrimaryDark"
+
             android:hint="Email"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
@@ -51,7 +56,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/editText_password"
             android:hint="Password"
-            android:textColor="@color/common_google_signin_btn_text_dark"
+            android:textColor="@color/colorPrimaryDark"
+            android:textColorHint="@color/colorPrimaryDark"
             android:background="@android:color/white"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="16dp"

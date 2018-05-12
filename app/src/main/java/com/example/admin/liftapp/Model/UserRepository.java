@@ -83,10 +83,7 @@ public class UserRepository {
                                 }
                                 Log.d("TAG", "updating: " + user.toString());
                             }
-                            Context check = MyApplication.getMyContext();
 
-                            SharedPreferences.Editor editor = MyApplication.getMyContext().getSharedPreferences("TAG", MODE_PRIVATE).edit();
-                            editor.putFloat("lastUpdateDate", reacentUpdate);
                         }
 
 

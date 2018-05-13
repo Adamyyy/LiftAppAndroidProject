@@ -8,12 +8,13 @@ import android.view.WindowManager;
 
 import com.example.admin.liftapp.Controller.LoginFragment;
 import com.example.admin.liftapp.Controller.MyApplication;
+import com.example.admin.liftapp.Controller.TrainerListFragment;
 import com.example.admin.liftapp.Controller.UserDetailFragment;
 import com.example.admin.liftapp.Model.Authentication;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class MainActivity extends AppCompatActivity implements LoginFragment.OnFragmentLoginInteractionListener,UserDetailFragment.OnFragmentUserInteractionListener {
+public class MainActivity extends AppCompatActivity implements TrainerListFragment.OnFragmentUserListInteractionListener,LoginFragment.OnFragmentLoginInteractionListener,UserDetailFragment.OnFragmentUserInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,10 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.OnF
     @Override
     public void showaTraineraListFragment() {
         Log.d("TAG","Got to showTrainerFragment");
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.container, TrainerListFragment.newInstance())
+                .commit();
     }
 
     @Override

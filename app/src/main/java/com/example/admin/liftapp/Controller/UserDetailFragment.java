@@ -116,6 +116,16 @@ public class UserDetailFragment extends Fragment {
 
             }
         });
+        view.findViewById(R.id.newstudent_cancel_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                progressBar.setVisibility(View.VISIBLE);
+                mListener.showaTraineraListFragment(); //Adam note after successfully created user we tell the listener (activity) to change fragment to user Fragment
+                progressBar.setVisibility(View.GONE);
+
+            }
+        });
 
 
 
@@ -155,7 +165,7 @@ public class UserDetailFragment extends Fragment {
                 Log.d("TAG","Got Users");
                //   User toDisplay = new User();
                   for (User user : userList)
-                  {
+                  {  progressBar.setVisibility(View.VISIBLE);
                       if (user.email.equals(email)){
                       userName.setText(user.userName);
                       height.setText(user.height);
@@ -165,7 +175,8 @@ public class UserDetailFragment extends Fragment {
 
                   }
                   }
-                // if (adapter != null) adapter.notifyDataSetChanged();
+                progressBar.setVisibility(View.GONE);
+
             }
         });
 

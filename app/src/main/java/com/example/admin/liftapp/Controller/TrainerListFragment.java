@@ -4,6 +4,7 @@ package com.example.admin.liftapp.Controller;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.admin.liftapp.Model.Model;
 import com.example.admin.liftapp.Model.User;
 import com.example.admin.liftapp.Model.UserViewModel;
 import com.example.admin.liftapp.R;
@@ -155,14 +157,34 @@ public class TrainerListFragment extends Fragment {
 
             TextView userHeightWeight = (TextView) convertView.findViewById(R.id.user_list_height_and_weight);
             TextView  userBirthday = (TextView) convertView.findViewById(R.id.user_list_birthday);
+            final ImageView userImage = (ImageView) convertView.findViewById(R.id.imageView2);
+
             final User user = userList.get(position);
 
+            userImage.setTag(user.imageUrl);
             userName.setText(user.getUserName());
             userClaim.setText(user.getClaim());
             userHeightWeight.setText(user.getHeight() + ", "+ user.getWeight());
             userBirthday.setText(user.getBirthday());
 
+            userImage.setImageResource(R.drawable.traineravatar);
+            if (user.imageUrl !=null) {
+                if (!(user.imageUrl.equals(""))) {
+                    Model.instance().getImage(user.imageUrl, new Model.GetImageListener() {
+                        @Override
+                        public void onSuccess(Bitmap image) {
+                            if (userImage.getTag().equals(user.imageUrl)) {
+                                userImage.setImageBitmap(image);
+                            }
+                        }
 
+                        @Override
+                        public void onFail() {
+
+                        }
+                    });
+                }
+            }
             ListProgressBar.setVisibility(View.GONE);
 
 

@@ -100,12 +100,20 @@
                 android:layout_width="1dp"
                 android:layout_height="wrap_content" />
             <Button
+                android:id="@+id/newstudent_Image_btn"
+                android:text="New Image"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:layout_width="1dp"
+                android:layout_height="wrap_content" />
+            <Button
                 android:id="@+id/newstudent_cancel_btn"
                 android:text="CANCEL"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 android:layout_width="1dp"
                 android:layout_height="wrap_content" />
+
         </LinearLayout>
     </LinearLayout>
     <ProgressBar

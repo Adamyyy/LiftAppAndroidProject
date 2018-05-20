@@ -3,9 +3,12 @@ package com.example.admin.liftapp.Controller;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -14,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -37,6 +41,7 @@ public class UserDetailFragment extends Fragment {
     ProgressBar progressBar;
     private OnFragmentUserInteractionListener mListener;
 
+
     private Button buttonCancel;
     private Button buttonSave;
     private EditText userName;
@@ -44,6 +49,10 @@ public class UserDetailFragment extends Fragment {
     private EditText weight;
     private EditText birth;
     private EditText claim;
+    private ImageView userImage;
+
+    Bitmap imageBitmap;
+    private String imgUrl;
 
     public interface OnFragmentUserInteractionListener {
 
@@ -82,9 +91,20 @@ public class UserDetailFragment extends Fragment {
         weight = view.findViewById(R.id.user_weight_et);
         birth = view.findViewById(R.id.newstudent_bdate_et);
         claim = view.findViewById(R.id.user_claimToFame_et);
+        userImage = view.findViewById(R.id.user_avatar_img);
+        view.findViewById(R.id.newstudent_Image_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("TAG","Button pressed");
+                dispatchTakePictureIntent();
 
 
-        view.findViewById(R.id.newstudent_save_btn).setOnClickListener(new View.OnClickListener() {
+            }
+        });
+
+
+
+             view.findViewById(R.id.newstudent_save_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -104,6 +124,9 @@ public class UserDetailFragment extends Fragment {
                 toAdd.setHeight(height.getText().toString());
                 toAdd.setWeight(weight.getText().toString());
                 toAdd.setClaim(claim.getText().toString());
+                if (imgUrl != null) {
+                    toAdd.setImageUrl(imgUrl);
+                }
 
                 Model.instance().addUser(toAdd, new Model.OnCreation() {
                     @Override
@@ -128,10 +151,54 @@ public class UserDetailFragment extends Fragment {
         });
 
 
+        view.findViewById(R.id.user_avatar_img).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
 
 
         return view;
     }
+
+
+
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+    final static int RESAULT_SUCCESS = -1;
+
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getContext().getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESAULT_SUCCESS) {
+            Bundle extras = data.getExtras();
+            imageBitmap = (Bitmap) extras.get("data");
+            userImage.setImageBitmap(imageBitmap);
+            if (imageBitmap != null) {
+                Model.instance().saveImage(imageBitmap, email, new Model.SaveImageListener() {
+                    @Override
+                    public void complete(String url) {
+                        imgUrl = url;
+                    }
+
+                    @Override
+                    public void fail() {
+                        Toast.makeText(MyApplication.getMyContext(), "Error handling image", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        }
+    }
+
+
+
 
     @Override
     public void onDetach() {
@@ -172,8 +239,22 @@ public class UserDetailFragment extends Fragment {
                       weight.setText(user.weight);
                       birth.setText(user.birthday);
                       claim.setText(user.claim);
+                          if (user.imageUrl !=null) {
+                              if (!(user.imageUrl.equals(""))){
+                              Model.instance().getImage(user.imageUrl, new Model.GetImageListener() {
+                                  @Override
+                                  public void onSuccess(Bitmap image) {
+                                      userImage.setImageBitmap(image);
 
+                                  }
+                                  @Override
+                                  public void onFail() {
+
+                                  }
+                              });
+                          }
                   }
+                      }
                   }
                 progressBar.setVisibility(View.GONE);
 

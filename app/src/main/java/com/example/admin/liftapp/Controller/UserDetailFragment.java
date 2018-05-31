@@ -50,9 +50,12 @@ public class UserDetailFragment extends Fragment {
     private EditText birth;
     private EditText claim;
     private ImageView userImage;
+    int existingUser = 0;
+
 
     Bitmap imageBitmap;
     private String imgUrl;
+    private static int Load_Image_results = 1;
 
     public interface OnFragmentUserInteractionListener {
 
@@ -113,8 +116,14 @@ public class UserDetailFragment extends Fragment {
                     Toast.makeText(MyApplication.getMyContext(), "Invalid Username", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
-                // public User(@NonNull String userName, String email, String birthday, String claim, String height, String weight, String imageUrl, float lastUpdated) {
+                if (existingUser == 0) {
+                    for (User user : userList) {
+                        if (text.equals(user.userName)) {
+                            Toast.makeText(MyApplication.getMyContext(), "UserName Already Exists", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                }
 
                 progressBar.setVisibility(View.VISIBLE);
                 User toAdd = new User();
@@ -131,9 +140,17 @@ public class UserDetailFragment extends Fragment {
                 Model.instance().addUser(toAdd, new Model.OnCreation() {
                     @Override
                     public void onCompletion(boolean success) {
+
+                        if (success == true){
                         Log.d("TAG","created user");
                         Toast.makeText(getActivity(), "User Details Updated!", Toast.LENGTH_SHORT).show();
                         progressBar.setVisibility(View.GONE);
+                    }
+
+                        else {
+                            Log.d("TAG","failed to create user");
+                            Toast.makeText(getActivity(), "Failed to create user!", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
 
@@ -234,7 +251,9 @@ public class UserDetailFragment extends Fragment {
                   for (User user : userList)
                   {  progressBar.setVisibility(View.VISIBLE);
                       if (user.email.equals(email)){
+                          existingUser = 1;
                       userName.setText(user.userName);
+                      userName.setEnabled(false);
                       height.setText(user.height);
                       weight.setText(user.weight);
                       birth.setText(user.birthday);

@@ -46,6 +46,7 @@ public class TrainerListFragment extends Fragment {
 
     public TrainerListFragment() {
         // Required empty public constructor
+        //blabla
     }
 
 

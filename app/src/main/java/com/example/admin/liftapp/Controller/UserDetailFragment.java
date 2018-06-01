@@ -1,10 +1,13 @@
 package com.example.admin.liftapp.Controller;
 
+import android.app.DatePickerDialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,9 +19,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.admin.liftapp.Model.Authentication;
@@ -27,6 +32,7 @@ import com.example.admin.liftapp.Model.User;
 import com.example.admin.liftapp.Model.UserViewModel;
 import com.example.admin.liftapp.R;
 
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -47,7 +53,7 @@ public class UserDetailFragment extends Fragment {
     private EditText userName;
     private EditText height;
     private EditText weight;
-    private EditText birth;
+    private TextView birth;
     private EditText claim;
     private ImageView userImage;
     int existingUser = 0;
@@ -56,6 +62,10 @@ public class UserDetailFragment extends Fragment {
     Bitmap imageBitmap;
     private String imgUrl;
     private static int Load_Image_results = 1;
+
+
+    private static final String TAG = "UserDetailFragment";
+    private DatePickerDialog.OnDateSetListener mDateSetListener;
 
     public interface OnFragmentUserInteractionListener {
 
@@ -95,6 +105,34 @@ public class UserDetailFragment extends Fragment {
         birth = view.findViewById(R.id.newstudent_bdate_et);
         claim = view.findViewById(R.id.user_claimToFame_et);
         userImage = view.findViewById(R.id.user_avatar_img);
+
+        birth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dialog = new DatePickerDialog(getActivity(), android.R.style.Theme_Holo_Dialog_MinWidth, mDateSetListener,year,month,day);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
+
+        mDateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                Log.d("TAG","Year = " + year + "month = " + month + "dOM = " + dayOfMonth);
+                int realMonth = month +1;
+                String date = " " + dayOfMonth + "/" + realMonth + "/" + year;
+                birth.setText(date);
+
+
+            }
+        };
+
+
         view.findViewById(R.id.newstudent_Image_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -260,6 +298,7 @@ public class UserDetailFragment extends Fragment {
                       claim.setText(user.claim);
                           if (user.imageUrl !=null) {
                               if (!(user.imageUrl.equals(""))){
+                                  imgUrl = user.imageUrl;
                               Model.instance().getImage(user.imageUrl, new Model.GetImageListener() {
                                   @Override
                                   public void onSuccess(Bitmap image) {

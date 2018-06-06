@@ -146,8 +146,8 @@ public class UserDetailFragment extends Fragment {
 
 
              view.findViewById(R.id.newstudent_save_btn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+                @Override
+                public void onClick(View view) {
 
                 final String text= userName.getText().toString();
                 if (text.equals("")) {
